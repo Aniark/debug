@@ -3,7 +3,9 @@ on: [workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CREDENTIALS: ${{ secrets.CREDENTIALS }}
     steps:
     - uses: fawazahmed0/action-debug@main
       with:
-        credentials: "root:1234"
+        credentials: "${{ secrets.CREDENTIALS }}"
