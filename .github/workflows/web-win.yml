@@ -5,10 +5,14 @@ jobs:
     runs-on: windows-latest
     env:
       CREDENTIALS: ${{ secrets.CREDENTIALS }} 
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
     - uses: msys2/setup-msys2@v2
       with:
-          msystem: MINGW64
+          msystem: MSYS
+          update: true
     - uses: fawazahmed0/action-debug@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
