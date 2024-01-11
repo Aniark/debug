@@ -6,7 +6,9 @@ jobs:
     env:
       CREDENTIALS: ${{ secrets.CREDENTIALS }} 
     steps:
-    - uses: egor-tensin/setup-mingw@v2.2.0
+    - uses: msys2/setup-msys2@master
+      with:
+          msystem: MINGW64
     - uses: fawazahmed0/action-debug@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
