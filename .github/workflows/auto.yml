@@ -1,4 +1,4 @@
-name: web-win
+name: auto-win
 on: [workflow_dispatch]
 jobs:
   build:
@@ -7,45 +7,44 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-    - uses: msys2/setup-msys2@v2.21.1
-      with:
-        update: true
-        path-type: inherit
-        install: >-
-          wget
-          git
-          cmake
-          yasm
-          nasm
-          pkg-config
-          make
-          diffutils
-          mingw-w64-x86_64-gcc
-          mingw-w64-i686-gcc
-          mingw-w64-i686-nasm
-          mingw-w64-ucrt-x86_64-nasm
-          mingw-w64-x86_64-nasm
-          mingw-w64-i686-yasm
-          mingw-w64-x86_64-yasm
-          mingw-w64-ucrt-x86_64-yasm
-          mingw-w64-x86_64-toolchain
-          mingw-w64-x86_64-binutils
-    - name: build
-        run:|
-        git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
-        sed -i 's/check_apple_framework AudioToolbox/check_apple_framework/' ffmpeg/configure
-        wget https://github.com/maz-1/AudioToolboxWrapper/releases/download/v0.4/AudioToolboxWrapper-v0.4.tar.gz
-        tar xf *.gz && rm -rf *.gz
-        mv AudioToolboxWrapper-v0.4 AudioToolboxWrapper
-        cd AudioToolboxWrapper
-        mkdir build
-        cd build
-        prefix="$PWD/install-prefix"
-        cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$prefix" ..
-        make install
-        mkdir ffmpeg
-        cd ffmpeg
-        export CFLAGS="-I${prefix}/include" LDFLAGS="-L${prefix}/lib"
-        ../../../ffmpeg/configure --enable-audiotoolbox
-        make LD="${prefix}/bin/atw_ldwrapper"
-  
+      - uses: msys2/setup-msys2@v2.21.1
+        with:
+          update: true
+          path-type: inherit
+          install: >-
+            wget
+            git
+            cmake
+            yasm
+            nasm
+            pkg-config
+            make
+            diffutils
+            mingw-w64-x86_64-gcc
+            mingw-w64-i686-gcc
+            mingw-w64-i686-nasm
+            mingw-w64-ucrt-x86_64-nasm
+            mingw-w64-x86_64-nasm
+            mingw-w64-i686-yasm
+            mingw-w64-x86_64-yasm
+            mingw-w64-ucrt-x86_64-yasm
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-binutils
+      - name: build
+        run: |
+            git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
+            sed -i 's/check_apple_framework AudioToolbox/check_apple_framework/' ffmpeg/configure
+            wget https://github.com/maz-1/AudioToolboxWrapper/releases/download/v0.4/AudioToolboxWrapper-v0.4.tar.gz
+            tar xf *.gz && rm -rf *.gz
+            mv AudioToolboxWrapper-v0.4 AudioToolboxWrapper
+            cd AudioToolboxWrapper
+            mkdir build
+            cd build
+            prefix="$PWD/install-prefix"
+            cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$prefix" ..
+            make install
+            mkdir ffmpeg
+            cd ffmpeg
+            export CFLAGS="-I${prefix}/include" LDFLAGS="-L${prefix}/lib"
+            ../../../ffmpeg/configure --enable-audiotoolbox
+            make LD="${prefix}/bin/atw_ldwrapper"
