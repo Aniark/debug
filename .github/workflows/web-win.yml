@@ -5,14 +5,12 @@ jobs:
     runs-on: windows-latest
     env:
       CREDENTIALS: ${{ secrets.CREDENTIALS }} 
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
-    - uses: msys2/setup-msys2@v2
+    - uses: msys2/setup-msys2@v2.21.1
       with:
           msystem: MSYS
-          update: true
+          install: >-
+            pacman
     - uses: fawazahmed0/action-debug@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
