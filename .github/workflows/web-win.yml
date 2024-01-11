@@ -7,10 +7,6 @@ jobs:
       CREDENTIALS: ${{ secrets.CREDENTIALS }} 
     steps:
     - uses: msys2/setup-msys2@v2.21.1
-      with:
-          msystem: MSYS
-          install: >-
-            pacman
     - uses: fawazahmed0/action-debug@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
