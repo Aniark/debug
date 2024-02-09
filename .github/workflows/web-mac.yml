@@ -6,7 +6,7 @@ jobs:
     env:
       CREDENTIALS: ${{ secrets.CREDENTIALS }}
     steps:
-    - uses: uses: crazy-max/ghaction-setup-docker@v3
+    - uses: crazy-max/ghaction-setup-docker@v3
     - uses: fawazahmed0/action-debug@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
