@@ -6,6 +6,7 @@ jobs:
     env:
       CREDENTIALS: ${{ secrets.CREDENTIALS }}
     steps:
+    - uses: docker-practice/actions-setup-docker@master
     - uses: fawazahmed0/action-debug@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
