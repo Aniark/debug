@@ -1,4 +1,4 @@
-name: web-win
+name: web-win-nomsys2
 on: [workflow_dispatch]
 jobs:
   build:
