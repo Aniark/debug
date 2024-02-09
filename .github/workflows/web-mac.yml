@@ -5,14 +5,7 @@ jobs:
     runs-on: macos-latest
     env:
       CREDENTIALS: ${{ secrets.CREDENTIALS }}
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
-    - uses: msys2/setup-msys2@v2.21.1
-      with:
-        update: true
-        path-type: inherit
     - uses: fawazahmed0/action-debug@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
