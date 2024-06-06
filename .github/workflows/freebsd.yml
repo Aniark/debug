@@ -1,7 +1,7 @@
 
-name: shell
+name: freebsd
 
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
   runshell:
@@ -33,6 +33,24 @@ jobs:
           (ls -lah)
     - name: Sleep
       run: for i in $(seq 1 10) ; do echo $i; sleep 1; done
+    - name: ssh into freebsd
+      run: |
+        ssh freebsd
+        fetch https://github.com/freebsd/freebsd-src/archive/refs/heads/main.zip && unzip -q main.zip
+        mkdir kernel
+        cd freebsd-src-main/sys/amd64/conf
+        cp GENERIC-NODEBUG bbr
+        sed -i '' -e	's/makeoptions/#makeoptions/g' GENERIC
+        echo "
+        options         TCPHPTS
+        options         RATELIMIT
+        makeoptions     WITH_EXTRA_TCP_STACKS=1
+        " >> bbr
+        cd ../../../
+        make -j$(sysctl -n hw.ncpu) kernel KERNCONF=bbr KODIR=/root/kernel
+        cd ..
+        tar cfJ kernel_amd64.txz kernel
     - uses: fawazahmed0/action-debug@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
+
