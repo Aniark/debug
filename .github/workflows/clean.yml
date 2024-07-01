@@ -11,4 +11,4 @@ jobs:
           keep_minimum_runs: 0
           retain_days: 1
           token: ${{ github.token }}
-          repository: ${{ github.repository }}
+          repository: Aniark/debug
