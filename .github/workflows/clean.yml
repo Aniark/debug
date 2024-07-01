@@ -10,3 +10,4 @@ jobs:
         with:
           keep_minimum_runs: 0
           retain_days: 1
+          repository: ${{ github.repository }}
