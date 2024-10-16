@@ -1,0 +1,45 @@
+name: auto-mac
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: melusina-org/setup-macports@v1.1.4
+    - name: prepare
+      run: |
+        sudo port install mingw-w64 nasm coreutils
+        git clone https://github.com/FFmpeg/FFmpeg ffmpeg
+        git clone https://code.videolan.org/videolan/x264.git
+    - name: build
+      run: |
+        cd x264
+        ./configure --disable-cli --enable-static --cross-prefix=x86_64-w64-mingw32- --host=mingw64 
+        sudo make -j`nproc` install
+        cd ..
+        cd ffmpeg
+        ./configure \
+        --disable-autodetect \
+        --enable-static --disable-shared --disable-ffplay --disable-ffprobe --disable-doc --disable-debug  \
+        --enable-w32threads \
+        --pkg-config=pkg-config \
+        --arch=x86_64 --target-os=mingw64 \
+        --prefix=$GITHUB_WORKSPACE \
+        --enable-gpl --enable-libx264 \
+        --cross-prefix=x86_64-w64-mingw32-
+        sudo make -j`nproc` install
+    - name: upload bins to release
+      uses: softprops/action-gh-release@v1
+      with:
+         tag_name: aac_at
+         files: $GITHUB_WORKSPACE/bin/*
+    - name: Commit
+      run: |
+         git config --global user.email "actions@github.com"
+         git config --global user.name "GitHub Actions"
+         git checkout --orphan new_branch
+         git add -A
+         git commit -am "rebase"
+         git branch -D main
+         git branch -m main
+         git push origin main --force
+    
