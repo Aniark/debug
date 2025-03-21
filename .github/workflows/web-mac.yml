@@ -2,7 +2,7 @@ name: web-mac
 on: [workflow_dispatch]
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-latest
     env:
       CREDENTIALS: ${{ secrets.CREDENTIALS }}
     steps:
