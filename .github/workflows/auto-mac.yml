@@ -70,7 +70,7 @@ jobs:
         cd ffmpeg
         sed -i '' -e	's/check_apple_framework AudioToolbox/check_apple_framework/g' configure
         ./configure \
-        --enable-shared --disable-ffplay --disable-ffprobe --disable-postproc --disable-doc --disable-debug \
+        --enable-shared --disable-ffplay --disable-ffprobe --disable-doc --disable-debug \
         --pkg-config=pkg-config \
         --arch=amd64 --target-os=mingw64 \
         --prefix=$GITHUB_WORKSPACE \
