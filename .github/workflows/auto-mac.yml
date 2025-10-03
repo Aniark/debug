@@ -78,7 +78,8 @@ jobs:
         --enable-ffnvcodec \
         --enable-gpl --enable-libx264 \
         --enable-zlib \
-        --cross-prefix=x86_64-w64-mingw32-
+        --cross-prefix=x86_64-w64-mingw32- \
+        --extra-ldflags=-static
         sudo make -j`nproc` install
     - name: 7z
       run: |
