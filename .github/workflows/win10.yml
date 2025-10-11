@@ -16,13 +16,13 @@ jobs:
         sed -i 's/ResetBase    =0/ResetBase    =1/' ConvertConfig.ini
         sed -i 's/AutoExit     =0/AutoExit     =1/' ConvertConfig.ini
         #sed -i 's/AddUpdates   =1/AddUpdates   =0/' ConvertConfig.ini
-        #sed -i 's/wim2esd      =1/wim2esd      =0/' ConvertConfig.ini
+        sed -i 's/wim2esd      =1/wim2esd      =0/' ConvertConfig.ini
     - name: run
       run: |
         powershell ./uup_download_windows.cmd
     - name: 7z
       run: |
-        7z -mx0 a release/win10_19045.6396.7z -v2000m *.iso
+        7z -tzip -mx0 a release/win10_19045.6396.zip -v2000m *.iso
     - name: release
       uses: softprops/action-gh-release@master
       with:
