@@ -7,7 +7,7 @@ jobs:
     env:
       TZ: Asia/Shanghai
     steps:
-    - name: brew
+    - name: apt
       run: |
         sudo apt update
         sudo apt install nasm mingw-w64
@@ -64,7 +64,7 @@ jobs:
         export LDFLAGS="-L$PWD/AudioToolboxWrapper/lib"
         git clone https://github.com/FFmpeg/FFmpeg ffmpeg --depth 1
         cd ffmpeg
-        sed -i '' -e	's/check_apple_framework AudioToolbox/check_apple_framework/g' configure
+        sed -i 's/check_apple_framework AudioToolbox/check_apple_framework/g' configure
         ./configure \
         --enable-shared --disable-ffplay --disable-ffprobe --disable-doc --disable-debug \
         --pkg-config=pkg-config \
@@ -74,8 +74,7 @@ jobs:
         --enable-ffnvcodec \
         --enable-gpl --enable-libx264 \
         --enable-zlib \
-        --cross-prefix=x86_64-w64-mingw32- \
-        --extra-ldflags=-static
+        --cross-prefix=x86_64-w64-mingw32-
         sudo make -j`nproc` install
     - name: 7z
       run: |
