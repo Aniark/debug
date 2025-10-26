@@ -13,7 +13,8 @@ jobs:
         cd nasm
         ./autogen.sh
         ./configure
-        sudo make -j`nproc` install
+        make -j`nproc`
+        sudo cp nasm ndisam /usr/local/bin
     - name: apt
       run: |
         sudo apt update
