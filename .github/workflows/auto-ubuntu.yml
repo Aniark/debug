@@ -14,7 +14,7 @@ jobs:
         ./autogen.sh
         ./configure
         make -j`nproc`
-        sudo cp nasm ndisam /usr/local/bin
+        sudo cp nasm ndiasm /usr/local/bin
     - name: apt
       run: |
         sudo apt update
