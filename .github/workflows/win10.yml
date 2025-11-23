@@ -1,0 +1,27 @@
+#某些老旧的bios可能不支持直接解压镜像到U盘安装，使用ventoy或rufus创建启动盘可解
+name: win10
+on: [workflow_dispatch]
+jobs:
+  create:
+    runs-on: windows-latest
+    env:
+      TZ: Asia/Shanghai
+    steps:
+    - name: prepare
+      run: |
+        curl -OL https://github.com/Aniark/debug/releases/download/aac_at/19045.6575_amd64_zh-cn_professional_c3d000fb_convert.zip
+        unzip *_convert.zip
+        sed -i 's/SkipEdge     =0/SkipEdge     =1/' ConvertConfig.ini
+        sed -i 's/AutoExit     =0/AutoExit     =1/' ConvertConfig.ini
+    - name: run
+      run: |
+        powershell ./uup_download_windows.cmd
+    - name: 7z
+      shell: cmd
+      run: |
+        FOR %%I IN (*.iso) DO 7z -tzip -mx0 a release/%%~nI.zip -v2000m %%~nI.*
+    - name: release
+      uses: softprops/action-gh-release@master
+      with:
+         tag_name: aac_at
+         files: release/*

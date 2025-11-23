@@ -1,0 +1,17 @@
+#某些老旧的bios可能不支持直接解压镜像到U盘安装，使用ventoy或rufus创建启动盘可解
+name: 7z
+on: [workflow_dispatch]
+jobs:
+  create:
+    runs-on: windows-2022
+    env:
+      TZ: Asia/Shanghai
+    steps:
+    - name: run
+      run: |
+        touch 1.iso
+    - name: 7z
+      shell: cmd
+      run: |
+        FOR %%I IN (*.iso) DO 7z -tzip -mx0 a release/%%~nI.zip -v2000m %%~nI.*
+
