@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: prepare
       run: |
-        curl -OL https://github.com/Aniark/debug/releases/download/win10/19045.6809_amd64_zh-cn_professional_c7132b30_convert.zip
+        curl -OL https://github.com/Aniark/debug/releases/download/win10/19045.6456_amd64_zh-cn_professional_fecdba26_convert.zip
         unzip *_convert.zip
         sed -i 's/ResetBase    =0/ResetBase     =1/' ConvertConfig.ini
         sed -i 's/SkipEdge     =0/SkipEdge     =1/' ConvertConfig.ini
