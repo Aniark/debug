@@ -14,7 +14,7 @@ jobs:
         7z x uup-converter-wimlib-v120z.7z
         curl -OL https://uupdump.net/misc/aria2c.exe
         touch aria2_script.txt
-        aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -oaria2_script.txt --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=7bfe9732-a1ca-46b3-a629-9f2176b8b5c2&pack=zh-cn&edition=professional&aria2=2"
+        aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -oaria2_script.txt --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=fb2dd074-7442-4f21-8486-312e4966e476&pack=zh-cn&edition=professional&aria2=2"
         aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -x16 -s16 -j5 -c -R -dUUPs -iaria2_script.txt
     - name: sed
       shell: bash
