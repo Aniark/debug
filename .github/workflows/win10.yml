@@ -20,10 +20,10 @@ jobs:
       shell: bash
       run: |
         sed -i 's/AutoStart    =0/AutoStart    =1/' ConvertConfig.ini
-        #sed -i 's/AddUpdates   =0/AddUpdates   =1/' ConvertConfig.ini
-        #sed -i 's/Cleanup      =0/Cleanup      =1/' ConvertConfig.ini
-        #sed -i 's/wim2esd      =0/wim2esd      =1/' ConvertConfig.ini
-        #sed -i 's/ResetBase    =0/ResetBase    =1/' ConvertConfig.ini
+        sed -i 's/AddUpdates   =0/AddUpdates   =1/' ConvertConfig.ini
+        sed -i 's/Cleanup      =0/Cleanup      =1/' ConvertConfig.ini
+        sed -i 's/wim2esd      =0/wim2esd      =1/' ConvertConfig.ini
+        sed -i 's/ResetBase    =0/ResetBase    =1/' ConvertConfig.ini
         sed -i 's/SkipEdge     =0/SkipEdge     =1/' ConvertConfig.ini
         sed -i 's/AutoExit     =0/AutoExit     =1/' ConvertConfig.ini
     - name: run
@@ -34,12 +34,11 @@ jobs:
       shell: cmd
       run: |
         :: FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/%%~nI.7z -v2000m %%~nI.*
-        FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/Win10_22H2_ZH-CN_X64.iso.7z -v2000m %%~nI.*
+        FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/Win10_22H2_ZH-CN_X64.ISO.7z -v2000m %%~nI.*
     - name: release note
       shell: cmd
       run: |
-        ls
-        ls *.iso > note.txt
+        FOR %%I IN (*.iso) DO ls %%~nI.* > note.txt
     - name: release
       uses: softprops/action-gh-release@master
       with:
