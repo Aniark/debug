@@ -36,7 +36,7 @@ jobs:
         :: FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/%%~nI.7z -v2000m %%~nI.*
         FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/Win10_22H2_ZH-CN_X64.iso.7z -v2000m %%~nI.*
     - name: release note
-      shell: bash
+      shell: cmd
       run: |
         ls
         ls *.iso > note.txt
