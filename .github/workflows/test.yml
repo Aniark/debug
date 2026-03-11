@@ -23,6 +23,7 @@ jobs:
     - name: release
       uses: softprops/action-gh-release@master
       with:
-         tag_name: win10
-         files: release/*
-         body_path: note.txt
+        allowUpdates: true
+        tag_name: win10
+        files: release/*
+        body_path: note.txt
