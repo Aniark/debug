@@ -1,0 +1,28 @@
+#某些老旧的bios可能不支持直接解压镜像到U盘安装，使用ventoy或rufus创建启动盘可解
+name: test
+on: [workflow_dispatch]
+jobs:
+  create:
+    runs-on: windows-2022
+    env:
+      TZ: Asia/Shanghai
+    steps:
+    - name: iso
+      shell: cmd
+      run: |
+        curl -OL https://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/mini.iso
+    - name: 7z
+      shell: cmd
+      run: |
+        :: FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/%%~nI.7z -v2000m %%~nI.*
+        FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/Win10_22H2_ZH-CN_X64.iso.7z -v2000m %%~nI.*
+    - name: release note
+      shell: bash
+      run: |
+        ls *.iso > note.txt
+    - name: release
+      uses: softprops/action-gh-release@master
+      with:
+         tag_name: win10
+         files: release/*
+         body_path: note.txt
