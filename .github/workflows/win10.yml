@@ -20,10 +20,10 @@ jobs:
       shell: bash
       run: |
         sed -i 's/AutoStart    =0/AutoStart    =1/' ConvertConfig.ini
-        sed -i 's/AddUpdates   =0/AddUpdates   =1/' ConvertConfig.ini
-        sed -i 's/Cleanup      =0/Cleanup      =1/' ConvertConfig.ini
-        sed -i 's/wim2esd      =0/wim2esd      =1/' ConvertConfig.ini
-        sed -i 's/ResetBase    =0/ResetBase    =1/' ConvertConfig.ini
+        #sed -i 's/AddUpdates   =0/AddUpdates   =1/' ConvertConfig.ini
+        #sed -i 's/Cleanup      =0/Cleanup      =1/' ConvertConfig.ini
+        #sed -i 's/wim2esd      =0/wim2esd      =1/' ConvertConfig.ini
+        #sed -i 's/ResetBase    =0/ResetBase    =1/' ConvertConfig.ini
         sed -i 's/SkipEdge     =0/SkipEdge     =1/' ConvertConfig.ini
         sed -i 's/AutoExit     =0/AutoExit     =1/' ConvertConfig.ini
     - name: run
@@ -38,6 +38,7 @@ jobs:
     - name: release note
       shell: bash
       run: |
+        ls
         ls *.iso > note.txt
     - name: release
       uses: softprops/action-gh-release@master
