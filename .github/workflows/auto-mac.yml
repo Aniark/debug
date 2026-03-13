@@ -105,7 +105,7 @@ jobs:
         --enable-shared --disable-ffplay --disable-ffprobe --disable-doc --disable-debug \
         --pkg-config=pkg-config \
         --arch=amd64 --target-os=mingw64 \
-        --prefix=$PWD \
+        --prefix=$GITHUB_WORKSPACE \
         --disable-w32threads --enable-pthreads \
         --enable-audiotoolbox --extra-libs=-lAudioToolboxWrapper \
         --enable-ffnvcodec \
