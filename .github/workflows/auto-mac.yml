@@ -48,18 +48,20 @@ jobs:
     - name: libaom
       run: |
         git clone https://aomedia.googlesource.com/aom --depth 1
-        cd aom/build
-        cmake -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file \
+        mkdir aom/cmbuild
+        cd aom/cmbuild
+        cmake -DCMAKE_TOOLCHAIN_FILE=../build/cmake/toolchains/x86_64-mingw-gcc.cmake \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_SHARED_LIBS=OFF \
-        -DBUILD_TESTING=OFF \
-        -DBUILD_APPS=OFF \
-        -DENABLE_AVX512=ON \
-        -DSVT_AV1_LTO=OFF ..
+        -DENABLE_EXAMPLES=NO \
+        -DENABLE_TESTS=NO \
+        -DENABLE_TOOLS=NO \
+        -DENABLE_DOCS=NO \
+        ..
         sudo make -j`nproc` install
     - name: libsvtav1
       run: |
-        git clone https://gitlab.com/AOMediaCodec/SVT-AV1.git
+        git clone https://gitlab.com/AOMediaCodec/SVT-AV1.git --depth 1
         cd SVT-AV1/build
         cmake -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file \
         -DCMAKE_BUILD_TYPE=Release \
@@ -67,7 +69,9 @@ jobs:
         -DBUILD_TESTING=OFF \
         -DBUILD_APPS=OFF \
         -DENABLE_AVX512=ON \
-        -DSVT_AV1_LTO=OFF .. 
+        -DSVT_AV1_LTO=ON \
+        -DSVT_AV1_PGO=ON \
+        ..
         sudo make -j`nproc` install
     - name: libx264
       run: |
