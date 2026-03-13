@@ -71,7 +71,7 @@ jobs:
         sudo make -j`nproc` install
     - name: libx264
       run: |
-        git clone https://gitlab.com/AOMediaCodec/SVT-AV1.git
+        git clone https://code.videolan.org/videolan/x264.git
         cd x264
         ./configure --disable-cli --enable-static --cross-prefix=x86_64-w64-mingw32- --host=mingw64 
         sudo make -j`nproc` install
