@@ -18,21 +18,8 @@ jobs:
         mv llvm* tools
         echo "tools=$PWD/tools" >> "$GITHUB_ENV"
         echo "$PWD/tools/bin" >> "$GITHUB_PATH"
-    - name: x264
+    - name: cmake toolchian file
       run: |
-        git clone https://code.videolan.org/videolan/x264.git
-        cd x264
-        ./configure --disable-cli --enable-static --cross-prefix=x86_64-w64-mingw32- --host=mingw64 
-        sudo make -j`nproc` install
-    - name: ffnvcodec
-      run: |
-        git clone https://github.com/FFmpeg/nv-codec-headers.git
-        cd nv-codec-headers
-        sudo make -j`nproc` install
-    - name: AudioToolboxWrapper
-      run: |
-        git clone https://github.com/dantmnf/AudioToolboxWrapper.git
-        cd AudioToolboxWrapper
         echo '# Sample toolchain file for building for Windows from an Ubuntu Linux system.
               #
               # Typical usage:
@@ -57,7 +44,47 @@ jobs:
               set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
               set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
               set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)' > mingw-w64-x86_64.cmake
-        cmake --toolchain mingw-w64-x86_64.cmake --install-prefix $tools/x86_64-w64-mingw32 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        echo "toolchain=$PWD/mingw-w64-x86_64.cmake" >> "$GITHUB_ENV"
+    - name: libaom-av1
+      run: |
+        git clone https://aomedia.googlesource.com/aom --depth 1
+        cd aom/build
+        cmake -DCMAKE_TOOLCHAIN_FILE=$toolchain \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_SHARED_LIBS=OFF \
+        -DBUILD_TESTING=OFF \
+        -DBUILD_APPS=OFF \
+        -DENABLE_AVX512=ON \
+        -DSVT_AV1_LTO=OFF ..
+        sudo make -j`nproc` install
+    - name: libsvtav1
+      run: |
+        git clone https://gitlab.com/AOMediaCodec/SVT-AV1.git
+        cd SVT-AV1/build
+        cmake -DCMAKE_TOOLCHAIN_FILE=$toolchain \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_SHARED_LIBS=OFF \
+        -DBUILD_TESTING=OFF \
+        -DBUILD_APPS=OFF \
+        -DENABLE_AVX512=ON \
+        -DSVT_AV1_LTO=OFF .. 
+        sudo make -j`nproc` install
+    - name: libx264
+      run: |
+        git clone https://gitlab.com/AOMediaCodec/SVT-AV1.git
+        cd x264
+        ./configure --disable-cli --enable-static --cross-prefix=x86_64-w64-mingw32- --host=mingw64 
+        sudo make -j`nproc` install
+    - name: ffnvcodec
+      run: |
+        git clone https://github.com/FFmpeg/nv-codec-headers.git
+        cd nv-codec-headers
+        sudo make -j`nproc` install
+    - name: AudioToolboxWrapper
+      run: |
+        git clone https://github.com/dantmnf/AudioToolboxWrapper.git
+        cd AudioToolboxWrapper
+        cmake --toolchain $toolchain --install-prefix $tools/x86_64-w64-mingw32 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
         sudo make -j`nproc` install
     - name: zlib
       run: |
@@ -78,6 +105,8 @@ jobs:
         --enable-audiotoolbox --extra-libs=-lAudioToolboxWrapper \
         --enable-ffnvcodec \
         --enable-gpl --enable-libx264 \
+        --enable-libaom-av1 \
+        --enable-libsvtav1 \
         --enable-zlib \
         --cross-prefix=x86_64-w64-mingw32- \
         --extra-ldflags=-static
