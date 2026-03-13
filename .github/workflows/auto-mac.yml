@@ -69,8 +69,6 @@ jobs:
         -DBUILD_TESTING=OFF \
         -DBUILD_APPS=OFF \
         -DENABLE_AVX512=ON \
-        -DSVT_AV1_LTO=ON \
-        -DSVT_AV1_PGO=ON \
         ..
         sudo make -j`nproc` install
     - name: libx264
