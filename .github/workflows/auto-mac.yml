@@ -45,7 +45,7 @@ jobs:
               set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
               set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)' > mingw-w64-x86_64.cmake
         echo "toolchain=$PWD/mingw-w64-x86_64.cmake" >> "$GITHUB_ENV"
-    - name: libaom-av1
+    - name: libaom
       run: |
         git clone https://aomedia.googlesource.com/aom --depth 1
         cd aom/build
@@ -105,7 +105,7 @@ jobs:
         --enable-audiotoolbox --extra-libs=-lAudioToolboxWrapper \
         --enable-ffnvcodec \
         --enable-gpl --enable-libx264 \
-        --enable-libaom-av1 \
+        --enable-libaom \
         --enable-libsvtav1 \
         --enable-zlib \
         --cross-prefix=x86_64-w64-mingw32- \
