@@ -44,12 +44,12 @@ jobs:
               set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
               set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
               set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)' > mingw-w64-x86_64.cmake
-        echo "toolchain=$PWD/mingw-w64-x86_64.cmake" >> "$GITHUB_ENV"
+        echo "cmake_toolchain_file=$PWD/mingw-w64-x86_64.cmake" >> "$GITHUB_ENV"
     - name: libaom
       run: |
         git clone https://aomedia.googlesource.com/aom --depth 1
         cd aom/build
-        cmake -DCMAKE_TOOLCHAIN_FILE=$toolchain \
+        cmake -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_SHARED_LIBS=OFF \
         -DBUILD_TESTING=OFF \
@@ -61,7 +61,7 @@ jobs:
       run: |
         git clone https://gitlab.com/AOMediaCodec/SVT-AV1.git
         cd SVT-AV1/build
-        cmake -DCMAKE_TOOLCHAIN_FILE=$toolchain \
+        cmake -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_SHARED_LIBS=OFF \
         -DBUILD_TESTING=OFF \
@@ -84,7 +84,7 @@ jobs:
       run: |
         git clone https://github.com/dantmnf/AudioToolboxWrapper.git
         cd AudioToolboxWrapper
-        cmake --toolchain $toolchain --install-prefix $tools/x86_64-w64-mingw32 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        cmake --toolchain $cmake_toolchain_file --install-prefix $tools/x86_64-w64-mingw32 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
         sudo make -j`nproc` install
     - name: zlib
       run: |
