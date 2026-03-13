@@ -105,13 +105,14 @@ jobs:
         --enable-shared --disable-ffplay --disable-ffprobe --disable-doc --disable-debug \
         --pkg-config=pkg-config \
         --arch=amd64 --target-os=mingw64 \
-        --prefix=$GITHUB_WORKSPACE \
+        --prefix=$PWD \
+        --disable-w32threads --enable-pthreads \
         --enable-audiotoolbox --extra-libs=-lAudioToolboxWrapper \
         --enable-ffnvcodec \
         --enable-gpl --enable-libx264 \
+        --enable-zlib \
         --enable-libaom \
         --enable-libsvtav1 \
-        --enable-zlib \
         --cross-prefix=x86_64-w64-mingw32- \
         --extra-ldflags=-static
         sudo make -j`nproc` install
