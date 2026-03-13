@@ -62,7 +62,8 @@ jobs:
     - name: libsvtav1
       run: |
         git clone https://gitlab.com/AOMediaCodec/SVT-AV1.git --depth 1
-        cd SVT-AV1/build
+        mkdir SVT-AV1/cmbuild
+        cd SVT-AV1/cmbuild
         cmake -DCMAKE_TOOLCHAIN_FILE=$cmake_toolchain_file \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_SHARED_LIBS=OFF \
