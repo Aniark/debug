@@ -15,8 +15,10 @@ jobs:
         run: |
          git config --global user.email "actions@github.com"
          git config --global user.name "GitHub Actions"
-         git checkout
+         git checkout --orphan new_branch
+         git reset --hard HEAD^
          git add -A
-         git merge --squash main
-         git commit -am "squash"
+         git commit -am "rebase"
+         git branch -D main
+         git branch -m main
          git push origin main --force
