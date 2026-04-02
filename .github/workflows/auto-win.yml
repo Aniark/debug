@@ -39,7 +39,7 @@ jobs:
       run: |
         git clone https://github.com/dantmnf/AudioToolboxWrapper.git
         cd AudioToolboxWrapper
-        cmake --install-prefix $MSYSTEM_PREFIX -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+        cmake -G "Unix Makefiles" --install-prefix $MSYSTEM_PREFIX -DCMAKE_POLICY_VERSION_MINIMUM=3.5
         make -j`nproc` install
     - name: zlib
       run: |
