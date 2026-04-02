@@ -9,19 +9,19 @@ jobs:
     steps:
     - uses: msys2/setup-msys2@v2
       with:
-        msystem: CLANG64
+        msystem: MSYS
         update: true
         path-type: minimal
         install: >-
           pactoys
           make
         pacboy: >-
-          git
-          cmake
-          nasm
-          gcc-compat
-          pkg-config
-          7zip
+          git:c
+          cmake:c
+          nasm:c
+          gcc-compat:c
+          pkg-config:c
+          7zip:c
     - name: check env
       run: |
         env
