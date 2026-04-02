@@ -20,6 +20,7 @@ jobs:
           cmake
           nasm
           gcc-compat
+          pkg-config
           7zip
     - name: check env
       run: |
@@ -61,7 +62,7 @@ jobs:
         --enable-ffnvcodec \
         --enable-gpl --enable-libx264 \
         --enable-zlib \
-        --extra-ldflags=-static --pkg-config-flags=--static
+        --extra-ldflags=-static
         make -j`nproc` install
     - name: 7z
       run: |
