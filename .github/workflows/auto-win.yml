@@ -15,13 +15,15 @@ jobs:
         install: >-
           pactoys
           make
+          git
+          cmake
+          nasm
+          7zip
+          pkg-config
+          clang
+          llvm
         pacboy: >-
-          git:c
-          cmake:c
-          nasm:c
           gcc-compat:c
-          pkg-config:c
-          7zip:c
     - name: check env
       run: |
         env
