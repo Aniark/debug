@@ -14,9 +14,9 @@ jobs:
         path-type: minimal
         install: >-
           pactoys
+          make
         pacboy: >-
           git
-          make
           cmake
           nasm
           gcc-compat
