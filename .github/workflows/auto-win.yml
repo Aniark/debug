@@ -18,7 +18,7 @@ jobs:
           git
           cmake
           nasm
-          7zip
+          p7zip
           pkg-config
           clang
           llvm
