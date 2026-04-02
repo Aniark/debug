@@ -9,21 +9,19 @@ jobs:
     steps:
     - uses: msys2/setup-msys2@v2
       with:
-        msystem: MSYS
+        msystem: CLANG64
         update: true
         path-type: minimal
         install: >-
           pactoys
           make
+        pacboy: >-
+          gcc-compat
+          7zip
           git
           cmake
           nasm
-          p7zip
           pkg-config
-          clang
-          llvm
-        pacboy: >-
-          gcc-compat:c
     - name: check env
       run: |
         env
@@ -31,7 +29,7 @@ jobs:
       run: |
         git clone https://code.videolan.org/videolan/x264.git
         cd x264
-        ./configure --disable-cli --enable-static 
+        ./configure --disable-cli --enable-static --prefix=$MSYSTEM_PREFIX
         make -j`nproc` install
     - name: ffnvcodec
       run: |
@@ -48,7 +46,7 @@ jobs:
       run: |
         git clone https://github.com/madler/zlib.git
         cd zlib
-        ./configure --static
+        ./configure --static --prefix=$MSYSTEM_PREFIX
         make -j`nproc` install
     - name: ffmpeg
       run: |
