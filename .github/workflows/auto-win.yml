@@ -35,7 +35,7 @@ jobs:
       run: |
         git clone https://github.com/FFmpeg/nv-codec-headers.git
         cd nv-codec-headers
-        make -j`nproc` install
+        make -j`nproc` install PREFIX=$MSYSTEM_PREFIX
     - name: AudioToolboxWrapper
       run: |
         git clone https://github.com/dantmnf/AudioToolboxWrapper.git
