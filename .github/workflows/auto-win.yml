@@ -61,7 +61,7 @@ jobs:
         --enable-ffnvcodec \
         --enable-gpl --enable-libx264 \
         --enable-zlib \
-        --extra-ldflags=-static
+        --extra-ldflags=-static --pkg-config-flags=--static
         make -j`nproc` install
     - name: 7z
       run: |
