@@ -88,7 +88,7 @@ jobs:
     - name: 7z
       run: |
         sudo rm -rf bin/*.lib
-        7z a ff.7z ./bin/*
+        7z a ff-llvm.7z ./bin/*
     - name: release
       uses: softprops/action-gh-release@v1
       with:
