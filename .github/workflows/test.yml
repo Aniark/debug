@@ -8,4 +8,7 @@ jobs:
       TZ: Asia/Shanghai
     steps:
     - uses: owenthereal/action-upterm@v1
-      
+    - uses: softprops/action-gh-release@v1
+      with:
+         tag_name: win10
+         files: release/*
