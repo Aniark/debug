@@ -1,4 +1,4 @@
-name: auto-mac
+name: auto-mac-test
 on: [workflow_dispatch]
 jobs:
   build:
