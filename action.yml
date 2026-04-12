@@ -30,7 +30,7 @@ runs:
       shell: bash
       run: |
         sudo apt-get update -y
-        wget https://github.com/cloudflare/cloudflared/releases/download/2026.2.0/cloudflared-linux-`dpkg --print-architecture`.deb
+        wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-`dpkg --print-architecture`.deb
         sudo apt install -y ./cloudflared-linux-`dpkg --print-architecture`.deb
         rm ./cloudflared-linux-`dpkg --print-architecture`.deb
         
