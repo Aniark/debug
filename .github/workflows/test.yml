@@ -7,15 +7,18 @@ jobs:
     env:
       TZ: Asia/Shanghai
     steps:
+    - uses: actions/checkout@v6
+      with:
+        repository: kunitsyn/ogg-acm-codec
+      
     - uses: TheMrMilchmann/setup-msvc-dev@v4
       with:
         arch: x64
         sdk: 10.0.17763.0
         toolset: 14.0
         
-    - name: git clone
+    - name: build
       run: |
-        git clone https://github.com/kunitsyn/ogg-acm-codec.git
-        cd ogg-acm-codec/src/vorbisacm
+        cd src/vorbisacm
         devenv vorbisacm.sln
         ls
