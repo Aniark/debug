@@ -1,0 +1,14 @@
+#某些老旧的bios可能不支持直接解压镜像到U盘安装，使用ventoy或rufus创建启动盘可解
+name: test
+on: [workflow_dispatch]
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+    steps:
+    - uses: owenthereal/action-upterm@v1
+    - uses: softprops/action-gh-release@v1
+      with:
+         tag_name: win10
+         files: release/*
