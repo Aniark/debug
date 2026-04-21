@@ -14,6 +14,8 @@ jobs:
         cd ogg-acm-codec/src/vorbisacm
         
     - uses: TheMrMilchmann/setup-msvc-dev@v4
+      with:
+        arch: x64
 
     - uses: fawazahmed0/action-debug@main
       with:
