@@ -13,6 +13,7 @@ jobs:
         repository: kunitsyn/ogg-acm-codec
         
     - name: build
+      shell: cmd
       run: |
         cd src/vorbisacm
         devenv.exe vorbisacm.sln
