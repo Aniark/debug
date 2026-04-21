@@ -12,7 +12,7 @@ jobs:
       run: |
         git clone https://github.com/kunitsyn/ogg-acm-codec.git --depth 1
         cd ogg-acm-codec/src/vorbisacm
-        donet sln vorbisacm.sln
+
 
     - uses: fawazahmed0/action-debug@main
       with:
