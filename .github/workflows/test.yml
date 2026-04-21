@@ -15,7 +15,7 @@ jobs:
     - uses: TheMrMilchmann/setup-msvc-dev@v4
       with:
         arch: x64
-        sdk: 8.1
+        sdk: 10.0.17763.0
         toolset: 14.0
         
     - name: build
