@@ -3,7 +3,7 @@ name: test
 on: [workflow_dispatch]
 jobs:
   test:
-    runs-on: windows-2019
+    runs-on: windows-2025-vs2026
     env:
       TZ: Asia/Shanghai
     steps:
