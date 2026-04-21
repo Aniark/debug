@@ -15,7 +15,7 @@ jobs:
         
     - name: git clone
       run: |
-        git clone https://github.com/kunitsyn/ogg-acm-codec
+        git clone https://github.com/kunitsyn/ogg-acm-codec.git
         cd ogg-acm-codec/src/vorbisacm
         devenv vorbisacm.sln
         ls
