@@ -7,6 +7,7 @@ jobs:
     env:
       TZ: Asia/Shanghai
     steps:
+    
     - uses: actions/checkout@v6
       with:
         repository: kunitsyn/ogg-acm-codec
@@ -14,11 +15,13 @@ jobs:
     - uses: TheMrMilchmann/setup-msvc-dev@v4
       with:
         arch: x64
-        sdk: 10.0.17763.0
+        sdk: 8.1
         toolset: 14.0
         
     - name: build
       run: |
         cd src/vorbisacm
-        devenv vorbisacm.sln
-        ls
+
+    - uses: fawazahmed0/action-debug@main
+      with:
+        credentials: "${{ secrets.CREDENTIALS }}"
