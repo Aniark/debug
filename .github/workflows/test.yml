@@ -15,7 +15,7 @@ jobs:
     - name: build
       run: |
         cd src/vorbisacm
-        devenv vorbisacm.sln
+        devenv.exe vorbisacm.sln
 
     - uses: fawazahmed0/action-debug@main
       with:
