@@ -13,10 +13,10 @@ jobs:
         repository: kunitsyn/ogg-acm-codec
         
     - name: build
-      shell: cmd
+      shell: bash
       run: |
         cd src/vorbisacm
-        devenv.exe vorbisacm.sln
+        devenv vorbisacm.sln
 
     - uses: fawazahmed0/action-debug@main
       with:
