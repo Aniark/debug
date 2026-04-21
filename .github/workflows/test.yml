@@ -2,13 +2,20 @@
 name: test
 on: [workflow_dispatch]
 jobs:
-  create:
+  test:
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Shanghai
     steps:
-    - uses: owenthereal/action-upterm@v1
-    - uses: softprops/action-gh-release@v1
+    - uses: TheMrMilchmann/setup-msvc-dev@v4
       with:
-         tag_name: win10
-         files: release/*
+        arch: x64
+        sdk: 10.0.17763.0
+        toolset: 14.0
+        
+    - name: git clone
+      run: |
+        git clone https://github.com/kunitsyn/ogg-acm-codec
+        cd ogg-acm-codec/src/vorbisacm
+        devenv vorbisacm.sln
+        ls
