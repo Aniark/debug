@@ -1,6 +1,11 @@
 #某些老旧的bios可能不支持直接解压镜像到U盘安装，使用ventoy或rufus创建启动盘可解
 name: win10
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+    inputs:
+      UUID:
+        type: string
+        required: true
 jobs:
   create:
     runs-on: windows-2022
@@ -14,7 +19,7 @@ jobs:
         aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -x16 -s16 -j5 -c -R -d. -iconverter_windows
         7z x uup-converter-wimlib.7z
         touch aria2_script.txt
-        aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -oaria2_script.txt --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=5917a476-af14-4a36-acd4-6eeb7d61625a&pack=zh-cn&edition=professional&aria2=2"
+        aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -oaria2_script.txt --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id='${{ inputs.UUID }}'a&pack=zh-cn&edition=professional&aria2=2"
         aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -x16 -s16 -j5 -c -R -dUUPs -iaria2_script.txt
     - name: sed
       shell: bash
@@ -33,7 +38,7 @@ jobs:
     - name: 7z
       shell: cmd
       run: |
-        FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/Win10_22H2_ZH-CN_X64.ISO.7z -v2147483647b %%~nI.*
+        FOR %%I IN (*.iso) DO 7z -t7z -mx0 a release/Win10_ZH-CN_X64.ISO.7z -v2147483647b %%~nI.*
     - name: release note
       shell: cmd
       run: |
