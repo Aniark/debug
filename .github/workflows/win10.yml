@@ -19,7 +19,7 @@ jobs:
         aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -x16 -s16 -j5 -c -R -d. -iconverter_windows
         7z x uup-converter-wimlib.7z
         touch aria2_script.txt
-        aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -oaria2_script.txt --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id='${{ inputs.UUID }}'a&pack=zh-cn&edition=professional&aria2=2"
+        aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -oaria2_script.txt --allow-overwrite=true --auto-file-renaming=false "https://uupdump.net/get.php?id=${{ inputs.UUID }}&pack=zh-cn&edition=professional&aria2=2"
         aria2c --no-conf --async-dns=false --console-log-level=warn --log-level=info --log="aria2_download.log" -x16 -s16 -j5 -c -R -dUUPs -iaria2_script.txt
     - name: sed
       shell: bash
