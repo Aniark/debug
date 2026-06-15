@@ -82,7 +82,7 @@ jobs:
         sudo rm -rf bin/*.lib
         7z a ff-gcc.7z ./bin/*
     - name: release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@master
       with:
          tag_name: aac_at
          files: ff-gcc.7z
