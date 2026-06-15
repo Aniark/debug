@@ -62,12 +62,6 @@ jobs:
         cd AudioToolboxWrapper
         cmake --toolchain $cmake_toolchain_file --install-prefix $tools/x86_64-w64-mingw32 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
         sudo make -j`nproc` install
-    - name: zlib
-      run: |
-        git clone https://github.com/madler/zlib.git
-        cd zlib
-        CHOST=x86_64-w64-mingw32 ./configure --static
-        sudo make -j`nproc` install
     - name: ffmpeg
       run: |
         git clone https://github.com/FFmpeg/FFmpeg ffmpeg --depth 1
@@ -81,7 +75,6 @@ jobs:
         --enable-audiotoolbox --extra-libs=-lAudioToolboxWrapper \
         --enable-ffnvcodec \
         --enable-gpl --enable-libx264 \
-        --enable-zlib \
         --cross-prefix=x86_64-w64-mingw32- \
         --extra-ldflags=-static
         sudo make -j`nproc` install
@@ -90,7 +83,7 @@ jobs:
         sudo rm -rf bin/*.lib
         7z a ff-llvm.7z ./bin/*
     - name: release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@master
       with:
          tag_name: aac_at
          files: ff-llvm.7z
