@@ -69,7 +69,7 @@ jobs:
         rm -rf bin/*.lib
         7z a ff-win.7z ./bin/*
     - name: release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@master
       with:
          tag_name: aac_at
          files: ff-win.7z
