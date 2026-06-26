@@ -17,6 +17,6 @@ jobs:
 #      with:
 #        arch: x64
 #        sdk: 10.0.17763.0
-    - uses: fawazahmed0/action-debug@main
+    - uses: fawazahmed0/action-debug-vscode@main
       with:
         credentials: "${{ secrets.CREDENTIALS }}"
