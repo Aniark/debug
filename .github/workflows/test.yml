@@ -7,5 +7,12 @@ jobs:
     env:
       TZ: Asia/Shanghai
     steps:
-        
-    - uses: mxschmitt/action-tmate@v3
+    - name: download
+      run: |
+        wget https://archive.org/download/AV-LOSSLESS-TEST-MATERIAL/1920x1080/Blender-Foundation_Sintel-Trailer_1920x1080_24fps_8bit_rgb.video%2Baudio.mkv
+    - name: upload
+      uses: softprops/action-gh-release@master
+      with:
+         tag_name: aac_at
+         files: *.mkv
+#    - uses: mxschmitt/action-tmate@v3
