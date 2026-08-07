@@ -2,7 +2,7 @@ name: web-linux
 on: [workflow_dispatch]
 jobs:
   build:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     env:
       CREDENTIALS: ${{ secrets.CREDENTIALS }}
     steps:
